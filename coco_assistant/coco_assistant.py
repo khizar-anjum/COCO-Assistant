@@ -100,10 +100,11 @@ class COCO_Assistant():
 
             logging.debug("Merging Image Dirs...")
 
+            def ignore_nonimages(dir, files):
+              return [f for f in files if f[-4:].lower() in imext]
+
             for imdir in tqdm(im_dirs):
-                ims = [i for i in os.listdir(imdir) if i[-4:].lower() in imext]
-                for im in ims:
-                    shutil.copyfile(os.path.join(imdir, im), os.path.join(self.resim_dir, im))
+              shutil.copytree(imdir, self.resim_dir, ignore=ignore_nonimages)
 
         else:
             logging.debug("Not merging Image Dirs...")
