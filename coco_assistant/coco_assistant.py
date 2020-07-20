@@ -86,9 +86,12 @@ class COCO_Assistant():
         if os.path.exists(self.resim_dir) is True:
             shutil.rmtree(self.resim_dir)
 
-        if os.path.exists(self.resann_dir) is True:
+        if os.path.exists(self.resann_dir) is False:
+            os.makedirs(self.resann_dir, exist_ok=True)
+        else:
             shutil.rmtree(self.resann_dir)
-
+            os.makedirs(self.resann_dir, exist_ok=True)
+            
         if merge_images:
             print("Merging image dirs")
             im_dirs = [os.path.join(self.img_dir, folder) for folder in self.imgfolders]
