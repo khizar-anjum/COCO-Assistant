@@ -83,8 +83,11 @@ class COCO_Assistant():
         # Create directories for merged results and clear the previous ones
         # The exist_ok is for dealing with merged folder
         # TODO: Can be done better
-        if os.path.exists(self.resim_dir) is True:
+        if os.path.exists(self.resim_dir) is False:
+            os.makedirs(self.resim_dir, exist_ok=True)
+        else:
             shutil.rmtree(self.resim_dir)
+            os.makedirs(self.resim_dir, exist_ok=True)
 
         if os.path.exists(self.resann_dir) is False:
             os.makedirs(self.resann_dir, exist_ok=True)
