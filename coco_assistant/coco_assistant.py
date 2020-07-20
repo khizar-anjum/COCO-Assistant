@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import shutil
+from distutils.dir_util import copy_tree
 
 from pycocotools.coco import COCO
 
@@ -91,15 +92,15 @@ class COCO_Assistant():
         if merge_images:
             print("Merging image dirs")
             im_dirs = [os.path.join(self.img_dir, folder) for folder in self.imgfolders]
-            imext = [".png", ".jpg"]
+            #imext = [".png", ".jpg"]
 
             logging.debug("Merging Image Dirs...")
 
-            def ignore_nonimages(dir, files):
-              return [f for f in files if f[-4:].lower() in imext]
+            #def ignore_nonimages(dir, files):
+            #  return [f for f in files if f[-4:].lower() in imext]
 
             for imdir in tqdm(im_dirs):
-              shutil.copytree(imdir, self.resim_dir, ignore=ignore_nonimages)
+              copy_tree(imdir, self.resim_dir)
 
         else:
             logging.debug("Not merging Image Dirs...")
